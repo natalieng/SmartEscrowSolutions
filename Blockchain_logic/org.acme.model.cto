@@ -1,0 +1,112 @@
+/**
+ * New model file
+ */
+
+namespace org.acme.model
+  
+abstract participant Person identified by personID {
+  o String name
+  o String personID
+  o Double balance
+}
+
+participant Seller extends Person {
+
+}
+
+participant Buyer extends Person {
+
+}
+
+abstract participant Bank identified by bankID {
+  o String bankID
+  o String name
+  o Double balance
+}
+
+participant BuyerBank extends Bank {
+}
+
+participant SellerBank extends Bank {
+}
+
+// Define assets
+enum EscrowStatus {
+  o STARTED
+  o BUYER_DEPOSITED
+  o BUYER_BANK_DEPOSITED
+  o BUYER_APPROVED
+  o MORTGAGE_WITHDRAWN
+  o DELIVERED
+}
+
+asset Escrow identified by escrowID {
+  o String escrowID
+  o EscrowStatus status
+  o Double buyerDeposit
+  o Double buyerBankDeposit
+  o Boolean buyerApproved
+  o Boolean buyerBankWithdrawn
+  --> Title title
+  --> Buyer buyer
+  --> BuyerBank buyerBank
+  --> Seller seller
+  --> SellerBank sellerBank
+}
+
+
+asset Title identified by titleID {
+  o String titleID
+  --> Person owner
+}
+
+
+//Define transactions
+transaction StartEscrow {
+  o String escrowID
+  --> Title title
+  --> Buyer buyer
+  --> BuyerBank buyerBank
+  --> Seller seller
+  --> SellerBank sellerBank
+}
+
+event StartEscrowEvent {
+  o String escrowID
+}
+
+transaction BuyerApproved {
+  --> Escrow escrow
+}
+
+event BuyerApprovedEvent {
+  --> Escrow escrow
+}
+
+transaction WithdrawMortgage {
+  --> Escrow escrow
+  o Double amount
+}
+
+transaction TransferTitle {
+  --> Escrow escrow
+}
+
+transaction BuyerDeposit {
+  --> Escrow escrow
+  o Double amount
+}
+
+transaction BuyerBankDeposit {
+  --> Escrow escrow
+  o Double amount
+}
+
+transaction setupDemo {
+  o String number
+}
+
+
+
+
+
