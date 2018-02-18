@@ -25,7 +25,7 @@ composer runtime install --card PeerAdmin@hlfv1 --businessNetworkName empty-busi
 Deploy the business network:
 
 ```
-composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdminEnrollSecret adminpw --archiveFile escrow_v4.bna --file networkadmin.card
+composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdminEnrollSecret adminpw --archiveFile escrow_v5.bna --file networkadmin.card
 ```
 
 Import the network administrator identity as a usable business network card:
